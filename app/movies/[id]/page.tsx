@@ -1,5 +1,5 @@
-import { API_URL } from "@/app/(home)/page";
 import MovieVideos from "@/components/movie-video";
+import { API_URL } from "@/constants/api";
 import { NextPage } from "next";
 import type { Metadata } from "next";
 import { Suspense } from "react";
