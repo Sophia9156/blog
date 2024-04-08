@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import styled from "styled-components";
 
 const Navigation: React.FC = () => {
   const path = usePathname();
 
   return (
-    <nav>
+    <StyledNav>
       <ul>
         <li>
           <Link href="/">Home</Link> {path === "/" ? "🔥" : ""}
@@ -16,8 +17,16 @@ const Navigation: React.FC = () => {
           {path === "/about-us" ? "🔥" : ""}
         </li>
       </ul>
-    </nav>
+    </StyledNav>
   );
 };
 
 export default Navigation;
+
+const StyledNav = styled.nav`
+  ul {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+`;
