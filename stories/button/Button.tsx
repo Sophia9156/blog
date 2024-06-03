@@ -1,52 +1,76 @@
-import React from 'react';
-import './button.css';
+import React, { ReactNode } from "react";
+import styled, { css } from "styled-components";
 
 interface ButtonProps {
-  /**
-   * Is this the principal call to action on the page?
-   */
+  type?: "warning";
   primary?: boolean;
-  /**
-   * What background color to use
-   */
-  backgroundColor?: string;
-  /**
-   * How large should the button be?
-   */
-  size?: 'small' | 'medium' | 'large';
-  /**
-   * Button contents
-   */
-  label: string;
-  /**
-   * Optional click handler
-   */
+  size?: "small" | "medium" | "large";
   onClick?: () => void;
+  children: ReactNode;
 }
 
-/**
- * Primary UI component for user interaction
- */
-export const Button = ({
+export const Button: React.FC<ButtonProps> = ({
+  type,
   primary = false,
-  size = 'medium',
-  backgroundColor,
-  label,
+  size = "medium",
+  children,
   ...props
-}: ButtonProps) => {
-  const mode = primary ? 'storybook-button--primary' : 'storybook-button--secondary';
+}) => {
   return (
-    <button
-      type="button"
-      className={['storybook-button', `storybook-button--${size}`, mode].join(' ')}
-      {...props}
-    >
-      {label}
-      <style jsx>{`
-        button {
-          background-color: ${backgroundColor};
-        }
-      `}</style>
-    </button>
+    <StyledButton
+      type={type}
+      primary={primary}
+      size={size}
+      {...props}>
+      {children}
+    </StyledButton>
   );
 };
+
+interface StyledButtonProps {
+  type?: "warning";
+  primary?: boolean;
+  size?: "small" | "medium" | "large";
+}
+
+const StyledButton = styled.button<StyledButtonProps>`
+  font-family: "Nunito Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-weight: 700;
+  border: 0;
+  border-radius: 3em;
+  cursor: pointer;
+  display: inline-block;
+  line-height: 1;
+  ${(p) =>
+    p.primary
+      ? css`
+          color: white;
+          background-color: #1ea7fd;
+        `
+      : css`
+          color: #333;
+          background-color: white;
+          box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+        `}
+  ${(p) =>
+    p.size === "small"
+      ? css`
+          font-size: 12px;
+          padding: 10px 16px;
+        `
+      : p.size === "large"
+        ? css`
+            font-size: 16px;
+            padding: 12px 24px;
+          `
+        : css`
+            font-size: 14px;
+            padding: 11px 20px;
+          `}
+  ${(p) =>
+    p.type === "warning"
+      ? css`
+          background-color: red;
+        `
+      : ""}
+`;
