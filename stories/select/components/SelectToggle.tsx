@@ -47,9 +47,15 @@ const ToggleButton = styled.button<ToggleButtonProps>`
     p.primary
       ? css`
           border: 2px solid #1ea7fd;
+          &:hover {
+            border: 2px solid #0e81fc;
+          }
         `
       : css`
           border: 2px solid #aaa;
+          &:hover {
+            border: 2px solid #888;
+          }
         `}
   ${(p) =>
     p.size === "small"
