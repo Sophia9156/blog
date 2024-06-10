@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { useSelect } from "../Select";
+import { useSelect } from "..";
 
 export interface SelectItemProps {
   children: string;
@@ -19,7 +19,7 @@ export const SelectItem: React.FC<SelectItemProps> = ({ children, value }) => {
 
   return (
     <Item
-      isSelected={selectedItem === value}
+      isSelected={selectedItem ? selectedItem === value : false}
       size={size}
       onClick={() => selectItem(value)}>
       {children}

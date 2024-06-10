@@ -1,6 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
-import { useSelect } from "../Select";
+import styled from "styled-components";
+import { useSelect } from "..";
 
 export interface SelectMenuProps {
   children: React.ReactNode;

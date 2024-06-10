@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
-import { useSelect } from "../Select";
+import { useSelect } from "..";
 
 export const SelectToggle: React.FC = () => {
   const { primary, size, isOpen, options, toggle, value, disabled } =
