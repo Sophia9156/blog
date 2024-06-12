@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ButtonHTMLAttributes, ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 interface ButtonProps {
@@ -17,11 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   ...props
 }) => {
   return (
-    <StyledButton
-      type={type}
-      primary={primary}
-      size={size}
-      {...props}>
+    <StyledButton type={type} $primary={primary} $size={size} {...props}>
       {children}
     </StyledButton>
   );
@@ -29,8 +25,8 @@ export const Button: React.FC<ButtonProps> = ({
 
 interface StyledButtonProps {
   type?: "warning";
-  primary?: boolean;
-  size?: "small" | "medium" | "large";
+  $primary?: boolean;
+  $size?: "small" | "medium" | "large";
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -42,7 +38,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   display: inline-block;
   line-height: 1;
   ${(p) =>
-    p.primary
+    p.$primary
       ? css`
           color: white;
           background-color: #1ea7fd;
@@ -53,12 +49,12 @@ const StyledButton = styled.button<StyledButtonProps>`
           box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
         `}
   ${(p) =>
-    p.size === "small"
+    p.$size === "small"
       ? css`
           font-size: 12px;
           padding: 10px 16px;
         `
-      : p.size === "large"
+      : p.$size === "large"
         ? css`
             font-size: 16px;
             padding: 12px 24px;

@@ -3,7 +3,7 @@ import styled, { css } from "styled-components";
 import { useSelect } from "..";
 
 export const SelectToggle: React.FC = () => {
-  const { primary, size, isOpen, options, toggle, value, disabled } =
+  const { primary, size, isOpen, options, toggle, value, disabled, toggleRef } =
     useSelect();
   const label = React.useMemo(() => {
     if (options && options.length > 0) {
@@ -19,19 +19,21 @@ export const SelectToggle: React.FC = () => {
 
   return (
     <ToggleButton
-      primary={primary}
-      size={size}
+      ref={toggleRef}
+      $primary={primary}
+      $size={size}
       onClick={onClick}
-      disabled={disabled}>
+      disabled={disabled}
+    >
       {label}
-      <Arrow isOpen={isOpen} />
+      <Arrow $isOpen={isOpen} />
     </ToggleButton>
   );
 };
 
 interface ToggleButtonProps {
-  primary?: boolean;
-  size?: "small" | "medium" | "large";
+  $primary?: boolean;
+  $size?: "small" | "medium" | "large";
   disabled?: boolean;
 }
 
@@ -44,7 +46,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   cursor: pointer;
   width: 100%;
   ${(p) =>
-    p.primary
+    p.$primary
       ? css`
           border: 2px solid #1ea7fd;
           &:hover {
@@ -58,12 +60,12 @@ const ToggleButton = styled.button<ToggleButtonProps>`
           }
         `}
   ${(p) =>
-    p.size === "small"
+    p.$size === "small"
       ? css`
           font-size: 12px;
           padding: 10px 12px 10px 16px;
         `
-      : p.size === "large"
+      : p.$size === "large"
         ? css`
             font-size: 16px;
             padding: 12px 18px 12px 24px;
@@ -81,7 +83,7 @@ const ToggleButton = styled.button<ToggleButtonProps>`
       : ""}
 `;
 
-const Arrow = styled.span<{ isOpen: boolean }>`
+const Arrow = styled.span<{ $isOpen: boolean }>`
   display: inline-block;
   width: 0;
   height: 0;
@@ -90,7 +92,7 @@ const Arrow = styled.span<{ isOpen: boolean }>`
   vertical-align: middle;
   margin-left: 12px;
   ${(p) =>
-    p.isOpen
+    p.$isOpen
       ? css`
           border-top: 6px solid transparent;
           border-bottom: 6px solid black;

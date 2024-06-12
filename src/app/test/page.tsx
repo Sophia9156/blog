@@ -1,33 +1,16 @@
-"use client";
 import React from "react";
-import { Select, Button } from "@/stories";
+import { NextPage } from "next";
+import type { Metadata } from "next";
+import ComponentTest from "./ComponentTest";
 
-const Test: React.FC = () => {
-  const options = [
-    { label: "Korea 🇰🇷", value: "korea" },
-    { label: "Japan 🇯🇵", value: "japan" },
-    { label: "China 🇨🇳", value: "china" },
-  ];
-  const [value, setValue] = React.useState("korea");
+export const metadata: Metadata = {
+  title: "Test",
+};
 
+const Test: NextPage = () => {
   return (
     <div>
-      {/* <Select
-        primary
-        value={value}
-        onChange={(value) => setValue(value)}>
-        <Select.Toggle />
-        <Select.Menu>
-          {options.map((option) => (
-            <Select.Item
-              key={option.value}
-              value={option.value}>
-              {option.label}
-            </Select.Item>
-          ))}
-        </Select.Menu>
-      </Select> */}
-      <Button onClick={() => console.log("hi")}>버튼</Button>
+      <ComponentTest />
     </div>
   );
 };

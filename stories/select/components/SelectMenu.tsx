@@ -1,27 +1,42 @@
 import React from "react";
 import styled from "styled-components";
 import { useSelect } from "..";
+import SelectPortal from "./SelectPotal";
 
 export interface SelectMenuProps {
   children: React.ReactNode;
 }
 
 export const SelectMenu: React.FC<SelectMenuProps> = ({ children }) => {
-  const { isOpen, size } = useSelect();
+  const { isOpen, toggleRef } = useSelect();
+  const [menuStyle, setMenuStyle] = React.useState<React.CSSProperties>({
+    width: "100%",
+  });
+
+  React.useEffect(() => {
+    if (toggleRef?.current) {
+      const toggleRect = toggleRef.current.getBoundingClientRect();
+      setMenuStyle({
+        top: toggleRect.bottom + window.scrollY,
+        left: toggleRect.left + window.scrollX,
+        width: toggleRect.width,
+      });
+    }
+  }, [isOpen, toggleRef]);
+
   return (
-    <Menu
-      isOpen={isOpen}
-      size={size}>
-      {children}
-    </Menu>
+    <SelectPortal>
+      <Menu $isOpen={isOpen} style={menuStyle}>
+        {children}
+      </Menu>
+    </SelectPortal>
   );
 };
 
 const Menu = styled.div<{
-  isOpen: boolean;
-  size?: "small" | "medium" | "large";
+  $isOpen: boolean;
 }>`
-  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
+  display: ${({ $isOpen }) => ($isOpen ? "block" : "none")};
   position: absolute;
   background: white;
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);

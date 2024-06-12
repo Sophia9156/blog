@@ -4,6 +4,7 @@ import React, {
   ReactNode,
   useRef,
   useEffect,
+  RefObject,
 } from "react";
 import styled from "styled-components";
 import { SelectItem, SelectItemProps } from "./components/SelectItem";
@@ -25,6 +26,7 @@ interface SelectContextProps {
   toggle: () => void;
   selectItem: (item: string) => void;
   disabled?: boolean;
+  toggleRef?: RefObject<HTMLButtonElement>;
 }
 
 const SelectContext = createContext<SelectContextProps | undefined>(undefined);
@@ -52,7 +54,8 @@ export const Select: SelectGlobalProps = ({
   children,
   disabled = false,
 }) => {
-  const selectRef = useRef<HTMLDivElement | null>(null);
+  const selectRef = useRef<HTMLDivElement>(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [options, setOptions] = useState<OptionsProps[]>([]);
 
@@ -84,7 +87,9 @@ export const Select: SelectGlobalProps = ({
         toggle,
         selectItem,
         disabled,
-      }}>
+        toggleRef,
+      }}
+    >
       <SelectContainer ref={selectRef}>{children}</SelectContainer>
     </SelectContext.Provider>
   );
