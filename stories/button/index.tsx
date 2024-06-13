@@ -1,12 +1,13 @@
-import React, { ButtonHTMLAttributes, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import styled, { css } from "styled-components";
 
 interface ButtonProps {
   type?: "warning";
   primary?: boolean;
   size?: "small" | "medium" | "large";
-  onClick?: () => void;
   children: ReactNode;
+  onClick?: () => void;
+  disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -14,10 +15,24 @@ export const Button: React.FC<ButtonProps> = ({
   primary = false,
   size = "medium",
   children,
+  onClick,
+  disabled = false,
   ...props
 }) => {
+  const handleClick = () => {
+    if (disabled) return;
+    onClick && onClick();
+  };
+
   return (
-    <StyledButton type={type} $primary={primary} $size={size} {...props}>
+    <StyledButton
+      type={type}
+      $primary={primary}
+      $size={size}
+      onClick={handleClick}
+      $disabled={disabled}
+      {...props}
+    >
       {children}
     </StyledButton>
   );
@@ -27,6 +42,7 @@ interface StyledButtonProps {
   type?: "warning";
   $primary?: boolean;
   $size?: "small" | "medium" | "large";
+  $disabled?: boolean;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -38,16 +54,35 @@ const StyledButton = styled.button<StyledButtonProps>`
   display: inline-block;
   line-height: 1;
   ${(p) =>
-    p.$primary
+    p.$disabled
       ? css`
-          color: white;
-          background-color: #1ea7fd;
+          color: #aaa;
+          background-color: #eee;
         `
-      : css`
-          color: #333;
-          background-color: white;
-          box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
-        `}
+      : p.type === "warning"
+        ? css`
+            color: white;
+            background-color: red;
+            &:hover {
+              background-color: #ea0000;
+            }
+          `
+        : p.$primary
+          ? css`
+              color: white;
+              background-color: #1ea7fd;
+              &:hover {
+                background-color: #268fff;
+              }
+            `
+          : css`
+              color: #333;
+              background-color: white;
+              box-shadow: rgba(0, 0, 0, 0.15) 0px 0px 0px 1px inset;
+              &:hover {
+                background-color: #efefef;
+              }
+            `}
   ${(p) =>
     p.$size === "small"
       ? css`
@@ -63,10 +98,5 @@ const StyledButton = styled.button<StyledButtonProps>`
             font-size: 14px;
             padding: 11px 20px;
           `}
-  ${(p) =>
-    p.type === "warning"
-      ? css`
-          background-color: red;
-        `
-      : ""}
+  ${(p) => ""}
 `;

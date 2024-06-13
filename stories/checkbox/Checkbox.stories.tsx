@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Select } from ".";
+import { Checkbox } from ".";
 
 const meta = {
-  title: "Example/Select",
-  component: Select,
+  title: "Example/Checkbox",
+  component: Checkbox,
   parameters: {
     layout: "centered",
   },
   tags: ["autodocs"],
-} satisfies Meta<typeof Select>;
+} satisfies Meta<typeof Checkbox>;
 
 export default meta;
-type Story = StoryObj<typeof Select>;
+type Story = StoryObj<typeof Checkbox>;
 
 interface TemplateProps {
   primary?: boolean;
@@ -21,30 +21,17 @@ interface TemplateProps {
 }
 
 const Template: React.FC<TemplateProps> = ({ primary, size, disabled }) => {
-  const options = [
-    { label: "딸기 🍓", value: "strawberry" },
-    { label: "사과 🍎", value: "apple" },
-    { label: "포도 🍇", value: "grapes" },
-  ];
-  const [value, setValue] = useState("strawberry");
+  const [checked, setChecked] = React.useState(true);
 
   return (
-    <Select
+    <Checkbox
       primary={primary}
       size={size}
-      value={value}
-      onChange={(value) => setValue(value)}
+      label={"사람입니까?"}
+      checked={checked}
+      onChange={(checked) => setChecked(checked)}
       disabled={disabled}
-    >
-      <Select.Toggle />
-      <Select.Menu>
-        {options.map((option) => (
-          <Select.Item key={option.value} value={option.value}>
-            {option.label}
-          </Select.Item>
-        ))}
-      </Select.Menu>
-    </Select>
+    />
   );
 };
 

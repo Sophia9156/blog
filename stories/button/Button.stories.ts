@@ -1,5 +1,4 @@
 import type { Meta, StoryObj } from "@storybook/react";
-import { fn } from "@storybook/test";
 import { Button } from ".";
 
 const meta = {
@@ -9,7 +8,7 @@ const meta = {
     layout: "centered",
   },
   tags: ["autodocs"],
-  args: { onClick: fn() },
+  args: { onClick: () => console.log("clicked!") },
 } satisfies Meta<typeof Button>;
 
 export default meta;
@@ -47,5 +46,12 @@ export const Warning: Story = {
     primary: true,
     children: "Delete now",
     type: "warning",
+  },
+};
+
+export const Disabled: Story = {
+  args: {
+    children: "Not Available",
+    disabled: true,
   },
 };
