@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
-import { Select, Button } from "@/stories";
-import { Checkbox } from "@/stories/checkbox";
+import { Select, Button, Checkbox } from "@/stories";
 
 const ComponentTest = () => {
   const [value, setValue] = React.useState("korea");

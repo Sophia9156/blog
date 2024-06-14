@@ -33,35 +33,24 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         disabled={disabled}
         onChange={() => onClick()}
       />
-      {checked ? (
-        <StyledCheckbox
-          $primary={primary}
-          $size={size}
-          $checked={checked}
-          $disabled={disabled}
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          onClick={onClick}
-        >
+      <StyledCheckbox
+        $primary={primary}
+        $size={size}
+        $checked={checked}
+        $disabled={disabled}
+        xmlns="http://www.w3.org/2000/svg"
+        height="24px"
+        viewBox="0 -960 960 960"
+        width="24px"
+        onClick={onClick}
+      >
+        {checked ? (
           <path d="m424-312 282-282-56-56-226 226-114-114-56 56 170 170ZM200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Zm0-560v560-560Z" />
-        </StyledCheckbox>
-      ) : (
-        <StyledCheckbox
-          $primary={primary}
-          $size={size}
-          $checked={checked}
-          $disabled={disabled}
-          xmlns="http://www.w3.org/2000/svg"
-          height="24px"
-          viewBox="0 -960 960 960"
-          width="24px"
-          onClick={onClick}
-        >
+        ) : (
           <path d="M200-120q-33 0-56.5-23.5T120-200v-560q0-33 23.5-56.5T200-840h560q33 0 56.5 23.5T840-760v560q0 33-23.5 56.5T760-120H200Zm0-80h560v-560H200v560Z" />
-        </StyledCheckbox>
-      )}
+        )}
+      </StyledCheckbox>
+
       {label && (
         <Label $size={size} $disabled={disabled} onClick={onClick}>
           {label}
