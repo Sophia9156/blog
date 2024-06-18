@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled, { css } from "styled-components";
 
 interface RadioProps {
@@ -153,39 +153,40 @@ const Label = styled.label<{
       : ""}
 `;
 
-// interface RadioGroupProps {
-//   children: React.ReactNode;
-//   name: string;
-//   value?: string;
-//   onChange?: (value: string) => void;
-// }
+interface RadioGroupProps {
+  primary?: boolean;
+  size?: "small" | "medium" | "large";
+  value: string;
+  name: string;
+  options: { label: string; value: string }[];
+  onChange: (value: string) => void;
+  disabled?: boolean;
+}
 
-// export const RadioGroup: React.FC<RadioGroupProps> & {
-//   Radio: typeof Radio;
-// } = ({ children, name, value, onChange }) => {
-//   const [selectedValue, setSelectedValue] = useState(value);
+export const RadioGroup: React.FC<RadioGroupProps> & {
+  Radio: typeof Radio;
+} = ({ primary, size, value, name, options, onChange, disabled }) => {
+  const handleChange = (value: string) => {
+    onChange(value);
+  };
 
-//   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-//     setSelectedValue(e.target.value);
-//     if (onChange) {
-//       onChange(e.target.value);
-//     }
-//   };
+  return (
+    <div>
+      {options.map((option, index) => (
+        <Radio
+          key={index}
+          primary={primary}
+          size={size}
+          checked={value === option.value}
+          label={option.label}
+          name={name}
+          value={option.value}
+          onChange={handleChange}
+          disabled={disabled}
+        />
+      ))}
+    </div>
+  );
+};
 
-//   return (
-//     <div>
-//       {React.Children.map(children, (child) => {
-//         if (!React.isValidElement(child)) {
-//           return null;
-//         }
-//         return React.cloneElement(child as React.ReactElement<any>, {
-//           name,
-//           checked: child.props.value === selectedValue,
-//           onChange: handleChange,
-//         });
-//       })}
-//     </div>
-//   );
-// };
-
-// RadioGroup.Radio = Radio;
+RadioGroup.Radio = Radio;

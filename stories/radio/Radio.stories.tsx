@@ -1,7 +1,7 @@
 // components/Radio.stories.tsx
 import React, { useState } from "react";
 import type { Meta, StoryObj } from "@storybook/react";
-import { Radio } from ".";
+import { Radio, RadioGroup as RadioGroupComponent } from ".";
 
 const meta = {
   title: "Example/Radio",
@@ -14,6 +14,7 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof Radio>;
+type RadioGroupStory = StoryObj<typeof RadioGroupComponent>;
 
 interface TemplateProps {
   primary?: boolean;
@@ -69,4 +70,30 @@ export const Small: Story = {
 
 export const Disabled: Story = {
   render: () => <Template disabled={true} />,
+};
+
+const RadioGroupTemplate: React.FC = () => {
+  const [value, setValue] = useState("male");
+
+  const options = [
+    { label: "남자", value: "male" },
+    { label: "여자", value: "female" },
+  ];
+
+  return (
+    <RadioGroupComponent
+      primary
+      name="exampleGroup2"
+      value={value}
+      options={options}
+      onChange={(value) => {
+        console.log(value);
+        setValue(value);
+      }}
+    />
+  );
+};
+
+export const RadioGroup: RadioGroupStory = {
+  render: () => <RadioGroupTemplate />,
 };
