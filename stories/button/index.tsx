@@ -30,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
       $primary={primary}
       $size={size}
       onClick={handleClick}
-      $disabled={disabled}
+      disabled={disabled}
       {...props}
     >
       {children}
@@ -42,7 +42,7 @@ interface StyledButtonProps {
   type?: "warning";
   $primary?: boolean;
   $size?: "small" | "medium" | "large";
-  $disabled?: boolean;
+  disabled?: boolean;
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -54,8 +54,9 @@ const StyledButton = styled.button<StyledButtonProps>`
   display: inline-block;
   line-height: 1;
   ${(p) =>
-    p.$disabled
+    p.disabled
       ? css`
+          cursor: not-allowed;
           color: #aaa;
           background-color: #eee;
         `
@@ -98,5 +99,4 @@ const StyledButton = styled.button<StyledButtonProps>`
             font-size: 14px;
             padding: 11px 20px;
           `}
-  ${(p) => ""}
 `;
