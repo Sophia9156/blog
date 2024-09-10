@@ -97,7 +97,7 @@ const StyledInput = styled.input<StyledInputProps>`
   border-radius: 8px;
   color: #333;
   &:focus {
-    border-width: 2px;
+    border-width: 1.5px;
   }
   ${(p) =>
     p.disabled

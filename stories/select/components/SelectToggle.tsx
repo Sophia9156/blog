@@ -14,6 +14,11 @@ export const SelectToggle: React.FC = () => {
 
   const onClick = () => {
     if (disabled) return;
+    toggleRef?.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+      inline: "nearest",
+    });
     toggle();
   };
 
@@ -22,6 +27,7 @@ export const SelectToggle: React.FC = () => {
       ref={toggleRef}
       $primary={primary}
       $size={size}
+      $isOpen={isOpen}
       onClick={onClick}
       disabled={disabled}
     >
@@ -34,6 +40,7 @@ export const SelectToggle: React.FC = () => {
 interface ToggleButtonProps {
   $primary?: boolean;
   $size?: "small" | "medium" | "large";
+  $isOpen?: boolean;
   disabled?: boolean;
 }
 
@@ -48,16 +55,18 @@ const ToggleButton = styled.button<ToggleButtonProps>`
   ${(p) =>
     p.$primary
       ? css`
-          border: 2px solid #1ea7fd;
+          border: 1px solid #1ea7fd;
           &:hover {
-            border: 2px solid #0e81fc;
+            border: 1.5px solid #0e81fc;
           }
+          ${p.$isOpen ? `border: 1.5px solid #0e81fc` : ""}
         `
       : css`
-          border: 2px solid #aaa;
+          border: 1px solid #aaa;
           &:hover {
-            border: 2px solid #888;
+            border: 1.5px solid #888;
           }
+          ${p.$isOpen ? `border: 1.5px solid #0e81fc` : ""}
         `}
   ${(p) =>
     p.$size === "small"
@@ -81,6 +90,11 @@ const ToggleButton = styled.button<ToggleButtonProps>`
           border: 2px solid #ccc;
         `
       : ""}
+`;
+
+const ToggleInput = styled.input`
+  width: 0;
+  border: none;
 `;
 
 const Arrow = styled.span<{ $isOpen: boolean }>`
