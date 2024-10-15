@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { AppRouterCacheProvider } from "@mui/material-nextjs/v14-appRouter";
 import Navigation from "@/components/navigation";
 import StyledComponentsRegistry from "@/lib/registry";
 import { GlobalStyles } from "@/styles/globals";
@@ -22,11 +23,13 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body className={inter.className}>
-        <StyledComponentsRegistry>
-          <GlobalStyles />
-          <Navigation />
-          {children}
-        </StyledComponentsRegistry>
+        <AppRouterCacheProvider>
+          <StyledComponentsRegistry>
+            <GlobalStyles />
+            <Navigation />
+            {children}
+          </StyledComponentsRegistry>
+        </AppRouterCacheProvider>
       </body>
     </html>
   );

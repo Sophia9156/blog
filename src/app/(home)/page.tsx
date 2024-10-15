@@ -1,4 +1,5 @@
 import { getPosts } from "@/api/test";
+import { Button } from "@mui/material";
 import { NextPage } from "next";
 import type { Metadata } from "next";
 import { Suspense } from "react";
@@ -20,6 +21,7 @@ const HomePage: NextPage = async () => {
           </div>
         ))}
       </div>
+      <Button variant="contained">Contained</Button>
     </Suspense>
   );
 };
