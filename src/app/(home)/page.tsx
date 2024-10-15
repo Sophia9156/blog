@@ -1,38 +1,26 @@
-import { API_URL } from "@/constants/api";
+import { getPosts } from "@/api/test";
 import { NextPage } from "next";
 import type { Metadata } from "next";
-import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Home",
 };
 
-async function getMovies() {
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    const response = await fetch(API_URL);
-    const json = response.json();
-    return json;
-  } catch (error) {
-    console.error(error);
-  }
-}
-
 const HomePage: NextPage = async () => {
-  const movies = await getMovies();
+  const data = await getPosts();
 
   return (
-    <div>
-      <h1>Home!</h1>
-
+    <Suspense fallback={"Loading..."}>
+      <h1>Done.</h1>
       <div>
-        {movies.map((movie: any) => (
-          <li key={movie.id}>
-            <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-          </li>
+        {data.map((i: any) => (
+          <div key={i.id}>
+            <h5>{i.title}</h5>
+          </div>
         ))}
       </div>
-    </div>
+    </Suspense>
   );
 };
 
